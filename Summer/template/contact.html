@@ -2,6 +2,31 @@
 
 {% block content %}
 
-	
+  <div class="container">
+    <br>
+     <blockquote class="flow-text">
+       如果想要更加了解建楓暑訓，或是有任何相關的問題，歡迎填寫下方的留言表單。我們將盡快向您回覆！！！
+     </blockquote>
+     <form method="post" class="lime lighten-5 container">
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="name" name="name" type="text">
+          <label for="name">姓名</lable>
+        </div>
+        <div class="input-field col s6">
+          <input id="email" name="email" type="text">
+          <label for="email">電子郵件</lable>
+        </div>
+        <div class="input-field col s12">
+          <input id="title" name="title" type="text">
+          <label for="title">標題</lable>
+        </div>
+        <div class="input-field col s12">
+          <textarea id="content" name="content" class="materialize-textarea"></textarea>
+          <label for="content">內容</lable>
+        </div>
+      </div>
+    </form>
+  </div>
 
 {% endblock %}
