@@ -1,0 +1,79 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+nav{
+  background-color: #b2dfdb;
+}
+
+nav ul a,
+nav .brand-logo {
+  color: #444;
+}
+
+p {
+  line-height: 2rem;
+}
+
+.button-collapse {
+  color: #26a69a;
+}
+
+.parallax-container {
+  min-height: 500px;
+  line-height: 0;
+  height: auto;
+  color: rgba(255,255,255,.9);
+}
+  .parallax-container .section {
+    width: 100%;
+  }
+
+@media only screen and (max-width : 992px) {
+  .parallax-container .section {
+    position: absolute;
+    top: 40%;
+  }
+  #index-banner .section {
+    top: 10%;
+  }
+}
+
+@media only screen and (max-width : 600px) {
+  #index-banner .section {
+    top: 0;
+  }
+}
+
+
+.icon-block {
+  padding: 0 15px;
+}
+
+.il {
+  height: 80px;
+  text-align: center;
+  font-size: 125%;
+}
+
+footer.page-footer {
+  margin: 0;
+}
+
+body{
+  font-family: Arial,
+               "文泉驛正黑", 
+               "WenQuanYi Zen Hei", 
+               "儷黑 Pro", 
+               "LiHei Pro", 
+               "微軟正黑體", 
+               "Microsoft JhengHei", 
+               "標楷體", 
+               DFKai-SB, 
+               sans-serif;
+  background-color: #f0f4c3;
+}
