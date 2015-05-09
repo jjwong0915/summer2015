@@ -1,65 +1,67 @@
 <!DOCTYPE html>
-
 <html lang="zh-tw">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+  <title>2015楓琴建譜</title>
 
-  <head>
-   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-   <title>2015楓琴建譜</title>
-   <!-- CSS  -->
-   <link href="Summer/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-   <link href="Summer/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  </head>
-
-  <body class="flow-text">
+  <!-- CSS  -->
+  <link href="Summer/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="Summer/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="Summer/js/materialize.js"></script>
+  <script src="Summer/js/init.js"></script>
+</head>
+<body>
+  <div class="navbar-fixed">
     <nav role="navigation">
       <div class="nav-wrapper container">
         <a id="logo-container" href="/" class="brand-logo">建楓暑訓</a>
         <ul class="right hide-on-med-and-down">
           <li><a href="/">楓琴建譜</a></li>
-          <li><a href="/content">活動內容</a></li>
-          <li><a href="/signup">報名辦法</a></li>
+          <li><a href="#">活動內容</a></li>
+          <li><a href="#">活動照片</a></li>
+          <li><a href="#">報名辦法</a></li>
           <li><a href="/contact">連絡我們</a></li>
         </ul>
+
         <ul id="nav-mobile" class="side-nav">
           <li><a href="/">主頁</a></li>
-          <li><a href="/content">活動內容</a></li>
-          <li><a href="/signup">報名辦法</a></li>
+          <li><a href="#">活動內容</a></li>
+          <li><a href="#">報名辦法</a></li>
           <li><a href="/contact">連絡我們</a></li>
         </ul>
         <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
       </div>
     </nav>
+  </div>
     {% block content %}
     {% endblock %}
-    <footer class="page-footer teal">
-      <div class="container">
-        <div class="row">
-          <div class="col l6 s12">
-            <h5 class="white-text">關於主辦</h5>
-            <p class="grey-text text-lighten-4">本活動是由"建國中學資訊社"與"中山女高資訊研究社"共同主辦。兩社多年來以推廣資訊為目標，一同籌辦多次大型活動，並富有舉辦活動的經驗。我們秉持著專業與熱誠，摯邀同學們參與活動。</p>
-          </div>
-          <div class="col l6 s12">
-            <h5 class="white-text">相關連結</h5>
-            <ul>
-              <li><a class="white-text" href="http://www.infor.org/">建國中學資訊社</a></li>
-              <li><a class="white-text" href="http://www.infor.org/">infor.org</a></li>
-              <li><a class="white-text" href="#!">中山女高資訊研究社</a></li>
-              <li><a class="white-text" href="#!"></a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="footer-copyright">
-        <div class="container">
-        Last Update: 2015.4.28
-        </div>
-      </div>
-    </footer>
-    <!--  Scripts-->
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="Summer/js/materialize.js"></script>
-    <script src="Summer/js/init.js"></script>
-  </body>
+  <footer class="page-footer lime lighten-4 teal ">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="brown-text">關於主辦</h5>
+          <p class="brown-text">本活動是由"建國中學資訊社"與"中山女高資訊研究社"共同主辦。兩社多年來以推廣資訊為目標，一同籌辦多次大型活動，並富有舉辦活動的經驗。我們秉持著專業與熱誠，摯邀同學們參與活動。</p>
 
+
+        </div>
+        <div class="col l6 s12">
+          <h5 class="brown-text">相關連結</h5>
+          <ul>
+            <li><a class="brown-text" href="http://www.infor.org/">建國中學資訊社</a></li>
+            <li><a class="brown-text" href="http://www.infor.org/">infor.org</a></li>
+            <li><a class="brown-text" href="#!">中山女高資訊研究社</a></li>
+            <li><a class="brown-text" href="#!"></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright brown">
+      <div class="container white-text">
+        Last Update: 2015.5.9
+      </div>
+    </div>
+  </footer>
+  </body>
 </html>

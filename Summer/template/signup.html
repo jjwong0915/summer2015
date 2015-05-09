@@ -1,7 +1,70 @@
 {% extends "Summer/template/base.html" %}
 
 {% block content %}
-
-	
-
+<div class="container">
+	<div class="row">
+		<div class="col s12">
+			<h1 class="header center brown-text">活動報名</h1>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col s12">
+			<form class="col s6">
+	      <div class="row">
+	        <div class="input-field col s6">
+	          <i class="mdi-action-account-circle prefix brown-text"></i>
+	          <input id="icon_prefix" type="text" class="validate">
+	          <label for="icon_prefix">姓名</label>
+	        </div>
+	        <div class="input-field col s6">
+	          <i class="mdi-social-school prefix brown-text"></i>
+	          <input id="icon_prefix" type="text" class="validate">
+	          <label for="icon_prefix">學校</label>
+	        </div>
+	      </div>
+	      <div class="row ">
+	        <div class="input-field col s6">
+	          <i class="mdi-communication-phone prefix brown-text"></i>
+	          <input id="icon_prefix" type="text" class="validate">
+	          <label for="icon_prefix">電話</label>
+	        </div>
+	        <div class="input-field col s6">
+	          <i class="mdi-communication-email prefix brown-text"></i>
+	          <input id="icon_email" type="text" class="validate">
+	          <label for="icon_email">電子郵件</label>
+	        </div>
+	      </div>
+	      <div class="row">
+	      	<div class="input-field col s6">
+	      		<i class="mdi-action-today prefix brown-text"></i>
+	      		<input id="icon_date" type="date" class="datepicker">
+	      		<label for="icon_date">生日</label>
+	      	</div>
+	      	<div class="input-field col s6">
+			    	<i class="small mdi-maps-local-restaurant brown-text" class="food"></i>
+			      <input name="food" type="radio" id="meat" class="food">
+			      <label for="meat" class="food">葷</label>
+			      <input name="food" type="radio" id="vegetarian" >
+			      <label for="vegetarian" class="food">素</label>
+				  </div>
+	      </div>
+	      <div class="row">
+	        <div class="input-field col s12">
+	          <i class="mdi-editor-mode-edit prefix brown-text"></i>
+	          <textarea id="icon_prefix" class="materialize-textarea" ></textarea>
+	          <label for="icon_prefix">備註</label>
+	        </div>
+	      </div>
+	    </form>
+		</div>
+		<div class="col s6">
+			 <button class="btn waves-effect waves-light brown" type="submit" name="action">Submit
+		     <i class="mdi-content-send right"></i>
+		   </button>
+		</div>
+	</div>
+</div>
+<div class="progress">
+  <div class="determinate brown" style="width: 100%"></div>
+</div>
 {% endblock %}

@@ -7,12 +7,12 @@
  */
 
 nav{
-  background-color: #b2dfdb;
+  background-color: #795548;
 }
 
 nav ul a,
 nav .brand-logo {
-  color: #444;
+  color:white;
 }
 
 p {
@@ -20,7 +20,7 @@ p {
 }
 
 .button-collapse {
-  color: #26a69a;
+  color: #795548;
 }
 
 .parallax-container {
@@ -54,21 +54,6 @@ p {
   padding: 0 15px;
 }
 
-.il {
-  height: 80px;
-  text-align: center;
-  font-size: 125%;
-}
-
-.cb {
-  position: absolute;
-  top: 0px;
-  right: 15%;
-  z-index: -1;
-  opacity: 0.7;
-  width: 70%;
-}
-
 footer.page-footer {
   margin: 0;
 }
@@ -84,5 +69,50 @@ body{
                "標楷體", 
                DFKai-SB, 
                sans-serif;
+  color: #795548;
   background-color: #f0f4c3;
+}
+.input-field input[type=text]:focus + label {
+  color: #795548;
+}
+.input-field input[type=text]:focus {
+  border-bottom: 1px solid #795548;
+  box-shadow: 0 1px 0 0 #795548;
+}
+.input-field textarea[class=materialize-textarea]:focus + label {
+  color: #795548;
+}
+.input-field textarea[class=materialize-textarea]:focus {
+  border-bottom: 1px solid #795548;
+  box-shadow: 0 1px 0 0 #795548;
+}
+.input-field div[class=select-wrapper]{
+  color: #795548;
+}
+.picker__year-display{
+  color: #795548;
+}
+.picker__date-display{
+  background-color: #f0f4c3;
+  color: #795548;
+}
+.picker__weekday-display{
+  color: white;
+  background-color: #795548;
+}
+.picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected{
+  background-color: #795548;
+}
+.picker__day.picker__day--today{
+  color: #795548;
+}
+.btn-flat picker__today{
+  color: #795548;
+}
+.btn-flat picker__close{
+  color: #795548;
+}
+[type="radio"]:checked + label:after{
+  background-color: #795548;
+  border: #795548;
 }

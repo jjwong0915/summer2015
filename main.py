@@ -19,7 +19,8 @@ import jinja2
 import webapp2
 
 jinja_file = jinja2.FileSystemLoader(os.path.dirname(__file__))
-jinja_env = jinja2.Environment(loader = jinja_file, autoescape = True)
+jinja_env = jinja2.Environment(loader = jinja_file,
+                               autoescape = True)
 
 class Handler(webapp2.RequestHandler):
   def write(self, src, **values):
@@ -32,9 +33,9 @@ class Home(Handler):
     template_values = {}
     self.write(template_src, **template_values)
 
-class Content(Handler):
+class Contact(Handler):
   def get(self):
-    template_src = "Summer/template/content.html"
+    template_src = "Summer/template/contact.html"
     template_values = {}
     self.write(template_src, **template_values)
 
@@ -44,13 +45,8 @@ class Signup(Handler):
     template_values = {}
     self.write(template_src, **template_values)
 
-class Contact(Handler):
-  def get(self):
-    template_src = "Summer/template/contact.html"
-    template_values = {}
-    self.write(template_src, **template_values)
-
-app = webapp2.WSGIApplication([("/?", Home),
-                               ("/content/?", Content),
-                               ("/signup/?", Signup),
-                               ("/contact/?", Contact)], debug=True)
+app = webapp2.WSGIApplication([
+	('/', Home), 
+	('/contact', Contact), 
+  ('/signup', Signup)
+	], debug=True)
