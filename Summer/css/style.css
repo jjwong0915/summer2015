@@ -154,3 +154,17 @@ input[type=text].valid, input[type=text]:focus.valid, input[type=password].valid
 .subject-content li{
   list-style-type: circle;
 }
+
+.dropdown-content >li>span{
+  color: #795548;
+}
+
+.select-wrapper input.select-dropdown{
+  margin-left: 3rem;
+  width: calc(100% - 3rem);
+}
+
+.dropdown-content select-dropdown active{
+  left: 3rem;
+  width: calc(100% - 3rem);
+}

@@ -1,59 +1,164 @@
-#!/usr/bin/env python
-#
-# Copyright 2007 Google Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
+# -*- coding: utf-8 -*-
 import os
-import jinja2
+import re
+import random
+import hashlib
+import hmac
+from string import letters
+from time import strftime
+import codecs 
+from datetime import datetime, timedelta
+
 import webapp2
+import jinja2   
 
-jinja_file = jinja2.FileSystemLoader(os.path.dirname(__file__))
-jinja_env = jinja2.Environment(loader = jinja_file,
-                               autoescape = True)
+import base64
+import cgi
+import Cookie
+import email.utils
+import logging
+import os.path
+import time
+import urllib
+import wsgiref.handlers
 
-class Handler(webapp2.RequestHandler):
-  def write(self, src, **values):
-    template = jinja_env.get_template(src)
-    self.response.write(template.render(values))
+import json
+#from django.utils import simplejson as json
+from google.appengine.ext import db
+from google.appengine.ext import webapp
+from google.appengine.ext.webapp import util
+from google.appengine.ext.webapp import template
 
-class Home(Handler):
-  def get(self):
-    template_src = "Summer/template/home.html"
-    template_values = {}
-    self.write(template_src, **template_values)
+from handler import *
+from fbuser import *
 
-class Contact(Handler):
-  def get(self):
-    template_src = "Summer/template/contact.html"
-    template_values = {}
-    self.write(template_src, **template_values)
+class MainPage(Handler):
+    def get(self):
+        self.redirect('/index')
 
-class Signup(Handler):
-  def get(self):
-    template_src = "Summer/template/signup.html"
-    template_values = {}
-    self.write(template_src, **template_values)
+class Index(Handler):
+    def get(self):
+      self.render('home.html')
+
+class FBLogin(Handler):
+    def get(self):
+        verification_code = self.request.get("code")
+        args = dict(client_id=FACEBOOK_APP_ID,
+                    redirect_uri=self.request.path_url)
+        if verification_code:
+            args["client_secret"] = FACEBOOK_APP_SECRET
+            args["code"] = verification_code
+            response = cgi.parse_qs(urllib.urlopen(
+                "https://graph.facebook.com/oauth/access_token?" +
+                urllib.urlencode(args)).read())
+            access_token = response["access_token"][-1]
+
+            # Download the user profile and cache a local instance of the
+            # basic profile info
+            profile = json.load(urllib.urlopen(
+                "https://graph.facebook.com/me?" +
+                urllib.urlencode(dict(access_token=access_token))))
+            user_find = db.GqlQuery("SELECT * FROM FBUser WHERE id = :id " ,id = str(profile["id"]) ).fetch(None,0)
+            if user_find:
+                user = FBUser(key_name=str(profile["id"]), id=str(profile["id"]),
+                            fbname=profile["name"], access_token=access_token,
+                            profile_url=profile["link"],stop=user_find[0].stop,admin=user_find[0].admin)
+            else:
+                user = FBUser(key_name=str(profile["id"]), id=str(profile["id"]),
+                            fbname=profile["name"], access_token=access_token,
+                            profile_url=profile["link"],stop=False,admin=False)
+            user.put()
+            set_cookie(self.response, "fb_user", str(profile["id"]),
+                       expires=time.time() + 30 * 86400)
+            self.redirect("/")
+        else:
+            self.redirect(
+                "https://graph.facebook.com/oauth/authorize?" +
+                urllib.urlencode(args))
+
+
+class FBLogout(Handler):
+    def get(self):
+        set_cookie(self.response, "fb_user", "", expires=time.time() - 86400)
+        self.redirect("/")
+
+class NoLogin(Handler):
+    def get(self):
+        self.render('nologin.html')
+
+class NoPermission(Handler):
+    def get(self):
+        if not self.user and not self.fb_user:
+            self.render('nopermission.html')
+        elif self.fb_user:
+            fb_user = dict(fb_user=self.fb_user)
+            self.render('nopermission.html',**fb_user)
+        elif self.user:
+            user = dict(user = self.user)
+            self.render('nopermission.html', **user)
+
+class Stop(Handler):
+    def get(self):
+        self.error(500)
+        return
 
 class Content(Handler):
-  def get(self):
-    template_src = "Summer/template/content.html"
-    template_values = {}
-    self.write(template_src, **template_values)
+    def get(self):
+        self.render('content.html')
 
-app = webapp2.WSGIApplication([
-	('/', Home), 
-	('/contact', Contact), 
-  ('/signup', Signup),
-  ('/content', Content)
-	], debug=True)
+class Signup(Handler):
+    def get(self):
+        if not self.fb_user:
+            self.redirect('/fblogin')
+        else:
+            if self.fb_user.stop:
+                self.redirect('/stop')
+            else:
+                fbname = self.fb_user.fbname
+                self.render('signup.html',fbname=fbname)
+
+    def post(self):
+        if not self.fb_user:
+            self.redirect('/fblogin')
+        else:
+            if self.fb_user.stop:
+                self.redirect('/stop')
+            else:
+                name = self.request.get('name')
+                gender = self.request.get('gender')
+                birthdate = self.request.get('birthdate')
+                identification = self.request.get('identification')
+                school = self.request.get('school')
+                tshirt = self.request.get('tshirt')
+                phone = self.request.get('phone')
+                email = self.request.get('email')
+                emergency_contact = self.request.get('emergency_contact')
+                emergency_contact_phone = self.request.get('emergency_contact_phone')
+                meal = self.request.get('meal')
+                disease = self.request.get('disease')
+                prefix = self.request.get('prefix')
+                fb_name = self.fb_user.fbname
+                fb_url = 'https://www.facebook.com/'+ self.fb_user.id
+
+
+class Contact(Handler):
+    def get(self):
+        self.render('contact.html')
+        
+class Picture(Handler):
+    def get(self):
+        self.render('picture.html')
+        
+app = webapp2.WSGIApplication([('/', MainPage),
+                                ('/index' , Index),
+                                ('/fblogin',FBLogin),
+                                ('/fblogout',FBLogout),                                
+                                ('/nologin' , NoLogin),
+                                ('/nopermission' , NoPermission),
+                                ('/stop' , Stop),
+                                ('/content',Content),
+                                ('/signup',Signup),
+                                ('/contact',Contact), 
+                                ('/picture', Picture)
+                                ],
+                                debug=True)

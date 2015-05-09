@@ -1,5 +1,5 @@
-application: infor-28
-version: 2
+application: 'guestbook-first-test'
+version: 1
 runtime: python27
 api_version: 1
 threadsafe: yes
@@ -8,21 +8,27 @@ handlers:
 - url: /favicon\.ico
   static_files: favicon.ico
   upload: favicon\.ico
-- url: /Summer/css
+
+- url: /css
   static_dir: Summer/css
-- url: /Summer/font
+
+- url: /font
   static_dir: Summer/font
-- url: /Summer/css
+
+- url: /css
   static_dir: Summer/css
-- url: /Summer/image
+
+- url: /image
   static_dir: Summer/image
-- url: /Summer/js
+
+- url: /js
   static_dir: Summer/js
+
 - url: /.*
   script: main.app
 
 libraries:
 - name: webapp2
-  version: "2.5.2"
+  version: latest
 - name: jinja2
   version: latest
