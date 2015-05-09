@@ -72,47 +72,64 @@ body{
   color: #795548;
   background-color: #f0f4c3;
 }
+
 .input-field input[type=text]:focus + label {
   color: #795548;
 }
+
 .input-field input[type=text]:focus {
   border-bottom: 1px solid #795548;
   box-shadow: 0 1px 0 0 #795548;
 }
+
 .input-field textarea[class=materialize-textarea]:focus + label {
   color: #795548;
 }
+
 .input-field textarea[class=materialize-textarea]:focus {
   border-bottom: 1px solid #795548;
   box-shadow: 0 1px 0 0 #795548;
 }
+
 .input-field div[class=select-wrapper]{
   color: #795548;
 }
+
 .picker__year-display{
   color: #795548;
 }
+
 .picker__date-display{
   background-color: #f0f4c3;
   color: #795548;
 }
+
 .picker__weekday-display{
   color: white;
   background-color: #795548;
 }
+
 .picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected{
   background-color: #795548;
 }
+
 .picker__day.picker__day--today{
   color: #795548;
 }
+
 .btn-flat picker__today{
   color: #795548;
 }
+
 .btn-flat picker__close{
   color: #795548;
 }
+
 [type="radio"]:checked + label:after{
   background-color: #795548;
   border: #795548;
+}
+
+.subject-content li{
+  list-style-type: circle;
 }

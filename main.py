@@ -45,8 +45,15 @@ class Signup(Handler):
     template_values = {}
     self.write(template_src, **template_values)
 
+class Content(Handler):
+  def get(self):
+    template_src = "Summer/template/content.html"
+    template_values = {}
+    self.write(template_src, **template_values)
+
 app = webapp2.WSGIApplication([
 	('/', Home), 
 	('/contact', Contact), 
-  ('/signup', Signup)
+  ('/signup', Signup),
+  ('/content', Content)
 	], debug=True)
