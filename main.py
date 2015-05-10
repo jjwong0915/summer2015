@@ -234,7 +234,11 @@ class ConsoleParticipant_Delete(Handler):
                     participant.show = False
                     participant.put()
                     self.redirect('/console')
-
+        
+class Picture(Handler):
+    def get(self):
+        self.render('picture.html')
+        
 app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/index' , Index),
                                 ('/fblogin',FBLogin),
@@ -249,5 +253,6 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/console/participant',ConsoleParticipant),
                                 ('/console/participant/([0-9]+)' , ConsoleParticipant_PostPage),
                                 ('/console/participant/delete' , ConsoleParticipant_Delete),
+                                ('/picture', Picture)
                                 ],
                                 debug=True)
