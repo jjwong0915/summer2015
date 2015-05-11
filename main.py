@@ -107,6 +107,10 @@ class Content(Handler):
     def get(self):
         self.render('content.html')
 
+class Note(Handler):
+    def get(self):
+        self.render('note.html')
+
 class Signup(Handler):
     def get(self):
         if not self.fb_user:
@@ -253,6 +257,7 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/console/participant',ConsoleParticipant),
                                 ('/console/participant/([0-9]+)' , ConsoleParticipant_PostPage),
                                 ('/console/participant/delete' , ConsoleParticipant_Delete),
-                                ('/picture', Picture)
+                                ('/picture', Picture),
+                                ('/note', Note)
                                 ],
                                 debug=True)

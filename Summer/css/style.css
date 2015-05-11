@@ -23,16 +23,19 @@ p {
   color: #795548;
 }
 
+.header {
+  font-size: 750%;
+}
 
 .parallax-container {
-  min-height: 650px;
+  min-height: 600px;
   line-height: 0;
   height: auto;
   color: rgba(255,255,255,.9);
 }
 
 #index-banner{
-  height: 650px;
+  height: 350px;
 }
 
 .parallax-container .section {
@@ -42,7 +45,7 @@ p {
 @media only screen and (max-width : 992px) {
   .parallax-container .section {
     position: absolute;
-    top: 40%;
+    top: 20%;
   }
   #index-banner .section {
     top: 10%;
@@ -53,11 +56,6 @@ p {
   #index-banner .section {
     top: 0;
   }
-}
-
-
-.icon-block {
-  padding: 0 15px;
 }
 
 footer.page-footer {
@@ -167,4 +165,12 @@ input[type=text].valid, input[type=text]:focus.valid, input[type=password].valid
 .dropdown-content select-dropdown active{
   left: 3rem;
   width: calc(100% - 3rem);
+}
+
+#signup-button {
+  height: 50px;
+  width: 190px;
+  font-size: 200%;
+  text-align: center;
+  vertical-align: middle;
 }
