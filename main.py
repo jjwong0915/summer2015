@@ -146,17 +146,23 @@ class Signup(Handler):
                 fb_url = 'https://www.facebook.com/'+ self.fb_user.id
                 show = True
 
-                prefix = escape_input_save(prefix)
-                p = Participant.add_participant(name=name, gender=gender, birthdate=birthdate, 
-                    identification=identification, school=school, tshirt=tshirt, 
-                    phone=phone, email=email, emergency_contact=emergency_contact, 
-                    emergency_contact_phone=emergency_contact_phone, meal=meal, 
-                    disease=disease, prefix=prefix, fb_name=fb_name, fb_url=fb_url,show=show)
-                p.put()
-                p.post_created = datetime.now()+timedelta(hours=8)
-                p.put()
+                if(name and gender and birthdate and identification and phone and \
+                   school and tshirt and phone and email and emergency_contact and \
+                   meal and disease and fb_name and fb_url and show):
+                  prefix = escape_input_save(prefix)
+                  p = Participant.add_participant(name=name, gender=gender, birthdate=birthdate, 
+                      identification=identification, school=school, tshirt=tshirt, 
+                      phone=phone, email=email, emergency_contact=emergency_contact, 
+                      emergency_contact_phone=emergency_contact_phone, meal=meal, 
+                      disease=disease, prefix=prefix, fb_name=fb_name, fb_url=fb_url,show=show)
+                  p.put()
+                  p.post_created = datetime.now()+timedelta(hours=8)
+                  p.put()
+                  self.render('success.html')
+                else:
+                  fbname = self.fb_user.fbname
+                  self.render('signup.html',fbname=fbname,error="Please input all field!")
 
-                self.redirect('/')
 
 
 class Contact(Handler):
