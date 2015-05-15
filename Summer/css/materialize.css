@@ -5573,6 +5573,7 @@ small {
   will-change: transform, opacity; }
 
 .btn, .btn-large, .btn-flat {
+  opacity: 0.5;
   border: none;
   border-radius: 2px;
   display: inline-block;
@@ -5612,7 +5613,8 @@ small {
   transition: .2s ease-out;
   cursor: pointer; }
   .btn:hover, .btn-large:hover {
-    background-color: #2bbbad; }
+    background-color: #2bbbad; 
+    opacity: 1;}
 
 .btn-floating {
   display: inline-block;
