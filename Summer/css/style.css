@@ -149,6 +149,10 @@ input[type=text].valid, input[type=text]:focus.valid, input[type=password].valid
   border: #795548;
 }
 
+.subject-content {
+  padding-left: 20px;
+}
+
 .subject-content li{
   list-style-type: circle;
 }
