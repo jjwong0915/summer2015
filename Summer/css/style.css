@@ -182,3 +182,11 @@ input[type=text].valid, input[type=text]:focus.valid, input[type=password].valid
 .collapsible-body{
   background-color: white;
 }
+
+.collapsible-body ol{
+  padding-left: 80px
+}
+
+.collapsible-body li{
+  list-style-type:decimal;
+};
