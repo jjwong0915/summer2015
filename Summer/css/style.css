@@ -191,6 +191,6 @@ input[type=text].valid, input[type=text]:focus.valid, input[type=password].valid
   list-style-type:decimal;
 };
 
-.indexhead{
-  font-size: 900px
+.subtitle{
+  font-size:100%;
 }
