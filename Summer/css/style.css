@@ -190,3 +190,7 @@ input[type=text].valid, input[type=text]:focus.valid, input[type=password].valid
 .collapsible-body li{
   list-style-type:decimal;
 };
+
+.indexhead{
+  font-size: 900px
+}
