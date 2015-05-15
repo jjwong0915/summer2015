@@ -178,3 +178,7 @@ input[type=text].valid, input[type=text]:focus.valid, input[type=password].valid
   text-align: center;
   vertical-align: middle;
 }
+
+.collapsible-body{
+  background-color: white;
+}

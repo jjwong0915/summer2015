@@ -248,7 +248,11 @@ class ConsoleParticipant_Delete(Handler):
 class Picture(Handler):
     def get(self):
         self.render('picture.html')
-        
+
+class News(Handler):
+    def get(self):
+        self.render('news.html')
+
 app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/index' , Index),
                                 ('/fblogin',FBLogin),
@@ -264,6 +268,7 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/console/participant/([0-9]+)' , ConsoleParticipant_PostPage),
                                 ('/console/participant/delete' , ConsoleParticipant_Delete),
                                 ('/picture', Picture),
-                                ('/note', Note)
+                                ('/note', Note), 
+                                ('/news', News)
                                 ],
                                 debug=True)
