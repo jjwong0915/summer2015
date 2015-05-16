@@ -7,92 +7,100 @@
       <h1 class="center brown-text">活動報名</h1>
     </div>
   </div>
-  <h3 style="color:red;text-align:center">{{error}}</h3>
-  <div class="row">
-    <div class="col s12">
-      <form method="post" class="col s6">
+  <div>
+    <div>
+      <form method="post">
         <div class="row">
-          <div class="input-field col s6">
-            <i class="mdi-action-account-circle prefix brown-text"></i>
+          <br>
+          <h6 style="color:red;text-align:center" class="{{err_class}}">*為必填欄位</h6>
+          <div class="input-field col s12 m12">
+            <i class="mdi-action-account-box prefix brown-text"></i>
             <p id="icon_name" class="validate"></p>
             <label for="icon_name">FB:{{fbname}}</label>
             <br>
           </div>          
         </div>
         <div class="row">
-          <div class="input-field col s6">
+          <div class="input-field col s12 m6">
             <i class="mdi-action-account-circle prefix brown-text"></i>
             <input id="icon_name" type="text" class="validate" name="name">
-            <label for="icon_name">姓名</label>
+            <label for="icon_name">
+              姓名{{err}}
+            </label>
           </div>
-          <div class="input-field col s6">
+          <div class="input-field col s12 m6">
             <i class="mdi-action-face-unlock prefix brown-text"></i>
             <select id="icon_gender" class="Materialize-section" name="gender">
-				      <option value="" disabled selected>性別</option>
+				      <option value="" disabled selected>選擇性別{{err}}</option>
 				      <option value="1">男</option>
 				      <option value="2">女</option>
 				    </select>
-				    <label for="icon_gender">性別</label>
+				    <label for="icon_gender">性別{{err}}</label>
           </div>
         </div>
         <div class="row">
-          <div class="input-field col s6">
+          <div class="input-field col s12 m6">
             <i class="mdi-action-today prefix brown-text"></i>
             <input id="icon_birthdate" type="date" class="datepicker" name="birthdate">
-            <label for="icon_birthdate">出生日期</label>
+            <label for="icon_birthdate">出生日期{{err}}</label>
           </div>
-          <div class="input-field col s6">
+          <div class="input-field col s12 m6">
             <i class="mdi-action-perm-identity prefix brown-text"></i>
             <input id="icon_identification" type="text" class="validate" name="identification">
-            <label for="icon_identification">身份證字號(保險用)</label>
+            <label for="icon_identification">身份證字號(保險用){{err}}</label>
           </div>
         </div>
         <div class="row">
-        	<div class="input-field col s6">
+        	<div class="input-field col s12 m6">
             <i class="mdi-social-school prefix brown-text"></i>
             <input id="icon_school" type="text" class="validate" name="school">
-            <label for="icon_school">就讀學校(國中)</label>
+            <label for="icon_school">就讀國中{{err}}</label>
           </div>
-          <div class="input-field col s6">
-            <i class="mdi-action-accessibility prefix brown-text"></i>
-            <input id="icon_tshirt" type="text" class="validate" name="tshirt">
-            <label for="icon_tshirt">營服尺寸</label>
+          <div class="input-field col s12 m6">
+            <i class="mdi-communication-email prefix brown-text"></i>
+            <input id="icon_email" type="text" class="validate" name="tshirt">
+            <label for="icon_email">電子郵件{{err}}</label>
           </div>
         </div>
         <div class="row">
-        	<div class="input-field col s6">
+        	<div class="input-field col s12 m6">
             <i class="mdi-communication-phone prefix brown-text"></i>
             <input id="icon_phone" type="text" class="validate" name="phone">
-            <label for="icon_phone">電話(手機)</label>
+            <label for="icon_phone">手機(電話){{err}}</label>
           </div>
-          <div class="input-field col s6">
-            <i class="mdi-communication-email prefix brown-text"></i>
-            <input id="icon_email" type="text" class="validate" name="email">
-            <label for="icon_email">電子郵件</label>
+          <div class="input-field col s12 m6">
+            <i class="mdi-communication-business prefix brown-text"></i>
+            <input id="icon_address" type="text" class="validate" name="email">
+            <label for="icon_address">通訊地址{{err}}</label>
           </div>
         </div>
         <div class="row">
-          <div class="input-field col s6">
-            <i class="mdi-communication-contacts prefix brown-text"></i>
-            <input id="icon_emergency_contact" type="text" class="validate" name="emergency_contact">
-            <label for="icon_emergency_contact">緊急聯絡人</label>
-          </div>
-          <div class="input-field col s6">
-            <i class="mdi-communication-ring-volume prefix brown-text"></i>
-            <input id="icon_emergency_contact_phone" type="text" class="validate" name="emergency_contact_phone">
-            <label for="icon_emergency_contact_phone">緊急聯絡人電話</label>
-      		</div>
-        </div>
-        <div class="row">
-        	<div class="input-field col s6">
+          <div class="input-field col s12 m6">
             <i class="mdi-maps-local-restaurant prefix brown-text"></i>
             <input id="icon_meal" type="text" class="validate" name="meal">
-            <label for="icon_meal">特殊飲食習慣</label>
-      		</div>
-      		<div class="input-field col s6">
-            <i class="mdi-social-poll prefix brown-text"></i>
-            <input id="icon_disease" type="text" class="validate" name="disease">
-            <label for="icon_disease">特殊疾病、狀況</label>
+            <label for="icon_meal">飲食習慣{{err}}</label>
+          </div>
+          <div class="input-field col s12 m6">
+            <i class="mdi-navigation-fullscreen prefix brown-text"></i>
+            <select id="icon_size" class="Materialize-section" name="gender">
+              <option value="" disabled selected>選擇尺寸{{err}}</option>
+              <option value="1">大</option>
+              <option value="2">中</option>
+              <option value="3">小</option>
+            </select>'
+            <label for="icon_size">訓服尺寸{{err}}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12 m6">
+            <i class="mdi-communication-contacts prefix brown-text"></i>
+            <input id="icon_emergency_contact" type="text" class="validate" name="emergency_contact">
+            <label for="icon_emergency_contact">緊急聯絡人{{err}}</label>
+          </div>
+          <div class="input-field col s12 m6">
+            <i class="mdi-communication-ring-volume prefix brown-text"></i>
+            <input id="icon_emergency_contact_phone" type="text" class="validate" name="emergency_contact_phone">
+            <label for="icon_emergency_contact_phone">緊急聯絡電話{{err}}</label>
       		</div>
         </div>
         <div class="row">
