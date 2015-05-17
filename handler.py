@@ -172,7 +172,7 @@ def valid_birthdate(birthdate):
     if birthday:
         return True
 
-IDENTIFICATION_RE  = re.compile(r'^[A-Z]{1}[0-9]{10}$')
+IDENTIFICATION_RE  = re.compile(r'^[A-Z]{1}[0-9]{9}$')
 def valid_identification(identification):
     return identification and IDENTIFICATION_RE.match(identification)
 
