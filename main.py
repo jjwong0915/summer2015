@@ -188,9 +188,9 @@ class Signup(Handler):
                 if not valid_address(address):
                     params['error_address'] = u"填寫錯誤"
                     have_error = True
-                if not valid_meal(meal):
-                    params['error_meal'] = u"填寫錯誤"
-                    have_error = True
+                # if not valid_meal(meal):
+                #     params['error_meal'] = u"填寫錯誤"
+                #     have_error = True
                 if not valid_tshirt(tshirt):
                     params['error_tshirt'] = u"填寫錯誤"
                     have_error = True
