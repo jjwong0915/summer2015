@@ -1,1 +1,5 @@
-*.pcy
+*.pyc
+fbuser.pyc
+main.pyc
+participant.pyc
+handler.pyc
