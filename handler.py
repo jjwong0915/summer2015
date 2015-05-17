@@ -188,7 +188,8 @@ def valid_email(email):
 
 PHONE_RE  = re.compile(r'^09\d{8}$')
 def valid_phone(phone):
-    return not phone and PHONE_RE.match(phone)
+    if phone:
+        return True
 
 def valid_address(address):
     if address:
