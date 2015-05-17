@@ -43,6 +43,7 @@ class Index(Handler):
 
 class FBLogin(Handler):
     def get(self):
+        re = self.request.get('re')
         verification_code = self.request.get("code")
         args = dict(client_id=FACEBOOK_APP_ID,
                     redirect_uri=self.request.path_url)
@@ -53,7 +54,7 @@ class FBLogin(Handler):
                 "https://graph.facebook.com/oauth/access_token?" +
                 urllib.urlencode(args)).read())
             access_token = response["access_token"][-1]
-
+            
             # Download the user profile and cache a local instance of the
             # basic profile info
             profile = json.load(urllib.urlopen(
@@ -71,7 +72,9 @@ class FBLogin(Handler):
             user.put()
             set_cookie(self.response, "fb_user", str(profile["id"]),
                        expires=time.time() + 30 * 86400)
-            self.redirect("/")
+            
+            self.redirect('/signup')
+            
         else:
             self.redirect(
                 "https://graph.facebook.com/oauth/authorize?" +
@@ -114,13 +117,17 @@ class Note(Handler):
 class Signup(Handler):
     def get(self):
         if not self.fb_user:
-            self.redirect('/fblogin')
+            self.redirect('/fblogin?re=signup')
         else:
             if self.fb_user.stop:
                 self.redirect('/stop')
             else:
-                fbname = self.fb_user.fbname
-                self.render('signup.html',fbname=fbname,err_class="hide")
+                p = db.GqlQuery("SELECT * FROM Participant WHERE fb_id = :id " ,id = str(self.fb_user.id)).fetch(None,0)
+                if p:
+                    self.redirect('/')
+                else:
+                    fbname = self.fb_user.fbname
+                    self.render('signup.html',fbname=fbname,err_class="hide")
 
     def post(self):
         if not self.fb_user:
@@ -134,31 +141,83 @@ class Signup(Handler):
                 birthdate = self.request.get('birthdate')
                 identification = self.request.get('identification')
                 school = self.request.get('school')
-                tshirt = self.request.get('tshirt')
-                phone = self.request.get('phone')
                 email = self.request.get('email')
+                phone = self.request.get('phone')
+                address = self.request.get('address')
+                meal = self.request.get('meal')
+                tshirt = self.request.get('tshirt')
                 emergency_contact = self.request.get('emergency_contact')
                 emergency_contact_phone = self.request.get('emergency_contact_phone')
-                meal = self.request.get('meal')
-                disease = self.request.get('disease')
                 prefix = self.request.get('prefix')
+                fb_id = self.fb_user.id
                 fb_name = self.fb_user.fbname
                 fb_url = 'https://www.facebook.com/'+ self.fb_user.id
+                check = False
+                check_prefix = ''
                 show = True
 
-                prefix = escape_input_save(prefix)
-                p = Participant.add_participant(name=name, gender=gender, birthdate=birthdate, 
-                    identification=identification, school=school, tshirt=tshirt, 
-                    phone=phone, email=email, emergency_contact=emergency_contact, 
-                    emergency_contact_phone=emergency_contact_phone, meal=meal, 
-                    disease=disease, prefix=prefix, fb_name=fb_name, fb_url=fb_url,show=show)
-                p.put()
-                p.post_created = datetime.now()+timedelta(hours=8)
-                p.put()
-                self.render('success.html')
+                params = dict(name = name, gender=gender,birthdate=birthdate,
+                    identification=identification,school=school,email=email,
+                    phone=phone,address=address,meal=meal,tshirt=tshirt,
+                    emergency_contact=emergency_contact,
+                    emergency_contact_phone=emergency_contact_phone,
+                    prefix=prefix)
+                have_error=False
+
+                if not valid_name(name):
+                    params['error_name'] = u"填寫錯誤"
+                    have_error = True
+                if not valid_gender(gender):
+                    params['error_gender'] = u"填寫錯誤"
+                    have_error = True
+                if not valid_birthdate(birthdate):
+                    params['error_birthdate'] = u"填寫錯誤"
+                    have_error = True
+                if not valid_identification(identification):
+                    params['error_identification'] = u"填寫錯誤"
+                    have_error = True
+                if not valid_school(school):
+                    params['error_school'] = u"填寫錯誤"
+                    have_error = True
+                if not valid_email(email):
+                    params['error_email'] = u"填寫錯誤"
+                    have_error = True
+                if not valid_phone(phone):
+                    params['error_phone'] = u"填寫錯誤"
+                    have_error = True
+                if not valid_address(address):
+                    params['error_address'] = u"填寫錯誤"
+                    have_error = True
+                if not valid_meal(meal):
+                    params['error_meal'] = u"填寫錯誤"
+                    have_error = True
+                if not valid_tshirt(tshirt):
+                    params['error_tshirt'] = u"填寫錯誤"
+                    have_error = True
+                if not valid_emergency_contact(emergency_contact):
+                    params['error_emergency_contact'] = u"填寫錯誤"
+                    have_error = True
+                if not valid_emergency_contact_phone(emergency_contact_phone):
+                    params['error_emergency_contact_phone'] = u"填寫錯誤"
+                    have_error = True
+                # if not valid_prefix(emergency_prefix):
+                #     params['error_prefix'] = u"填寫錯誤"
+                #     have_error = True
+                if have_error:
+                    self.render('signup.html', **params)
+                else:                    
+                    prefix = escape_input_save(prefix)
+                    p = Participant.add_participant(name=name, gender=gender, birthdate=birthdate, 
+                        identification=identification, school=school, email=email, phone=phone, 
+                        addres=address, meal=meal, tshirt=tshirt, emergency_contact=emergency_contact, 
+                        emergency_contact_phone=emergency_contact_phone, prefix=prefix, fb_id=fb_id, 
+                        fb_name=fb_name, fb_url=fb_url, check=check, check_prefix=check_prefix, 
+                        show=show)
+                    p.put()
+                    p.post_created = datetime.now()+timedelta(hours=8)
+                    p.put()
+                    self.render('success.html')
                 
-
-
 class Contact(Handler):
     def get(self):
         self.render('contact.html')
@@ -166,7 +225,7 @@ class Contact(Handler):
 class Console(Handler):
     def get(self):
         if not self.fb_user:
-            self.redirect('/fblogin')
+            self.redirect('/fblogin?re=console')
         else:
             if not self.fb_user.admin:
                 self.redirect('/nopermission')
@@ -179,7 +238,7 @@ class Console(Handler):
 class ConsoleParticipant(Handler):
     def get(self):
         if not self.fb_user:
-            self.redirect('/fblogin')
+            self.redirect('/fblogin?re=console')
         else:
             if not self.fb_user.admin:
                 self.redirect('/nopermission')
@@ -205,7 +264,7 @@ class ConsoleParticipant_PostPage(Handler):
             return
 
         if not self.fb_user:
-            self.redirect('/fblogin')
+            self.redirect('/fblogin?re=console')
         else:
             if not self.fb_user.admin:
                 self.redirect('/nopermission')
@@ -218,7 +277,7 @@ class ConsoleParticipant_PostPage(Handler):
 class ConsoleParticipant_Delete(Handler):
     def get(self):        
         if not self.fb_user:
-            self.redirect('/fblogin')
+            self.redirect('/fblogin?re=console')
         else:
             if not self.fb_user.admin:
                 self.redirect('/nopermission')

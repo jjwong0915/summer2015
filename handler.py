@@ -36,9 +36,11 @@ template_dir = os.path.join(os.path.dirname(__file__), 'Summer/template')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
                                autoescape = True)
 
+# FACEBOOK_APP_ID = "1101523553197452"
+# FACEBOOK_APP_SECRET = "46f35b95eb1710680d16d39d78a86b05"
 
-FACEBOOK_APP_ID = "1101523553197452"
-FACEBOOK_APP_SECRET = "46f35b95eb1710680d16d39d78a86b05"
+FACEBOOK_APP_ID = "1101405939875880"
+FACEBOOK_APP_SECRET = "c0aba9ad62a0148f8bb1ae119a9eb3a7"
 
 def render_str(template, **params):
     t = jinja_env.get_template(template)
@@ -155,3 +157,54 @@ def cookie_signature(*parts):
     for part in parts:
         hash.update(part)
     return hash.hexdigest()
+
+# NAME_RE  = re.compile(r'^[/u4e00-/u9fa5]{1,3}$')
+def valid_name(name):
+    if name:
+        return True
+#     return not name or NAME_RE.match(name)
+
+def valid_gender(gender):
+    if(gender==u'男' or gender==u'女'):
+        return True
+
+def valid_birthdate(birthdate):
+    return not birthdate
+
+IDENTIFICATION_RE  = re.compile(r'^[A-Z]{1}[0-9]{10}$')
+def valid_identification(identification):
+    return not identification or IDENTIFICATION_RE.match(identification)
+
+# SCHOOL_RE = re.compile(r'^[/u4e00-/u9fa5]{1,10}$')
+def valid_school(school):
+    if school:
+        return True
+    # return not school or SCHOOL_RE.match(school)
+
+EMAIL_RE  = re.compile(r'^[\S]+@[\S]+\.[\S]+$')
+def valid_email(email):
+    return not email or EMAIL_RE.match(email)
+
+PHONE_RE  = re.compile(r'^09\d{8}$')
+def valid_phone(phone):
+    return not phone or PHONE_RE.match(phone)
+
+def valid_address(address):
+    if address:
+        return True
+
+def valid_meal(meal):
+    if(meal==u'葷'or meal==u'素'):
+        return True
+
+def valid_tshirt(tshirt):
+    if(tshirt==u'大'or tshirt==u'中' or tshirt==u'小'):
+        return True
+
+def valid_emergency_contact(emergency_contact):
+    if emergency_contact:
+        return True
+
+def valid_emergency_contact_phone(emergency_contact_phone):
+    if emergency_contact_phone:
+        return True

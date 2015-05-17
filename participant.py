@@ -27,16 +27,19 @@ class Participant(db.Model):
     birthdate = db.StringProperty(required = True)
     identification = db.StringProperty(required = True)
     school = db.StringProperty(required = True)
-    tshirt = db.StringProperty(required = True)
+    email = db.StringProperty(required = True)    
     phone = db.StringProperty(required = True)
-    email = db.StringProperty(required = True)
+    address = db.StringProperty(required = True)
+    meal = db.StringProperty(required = True)
+    tshirt = db.StringProperty(required = True)
     emergency_contact = db.StringProperty(required = True)
     emergency_contact_phone = db.StringProperty(required = True)
-    meal = db.StringProperty(required = True)
-    disease = db.StringProperty(required = True)
-    prefix = db.StringProperty(required = True)
+    prefix = db.StringProperty()
+    fb_id = db.StringProperty(required = True)
     fb_name = db.StringProperty(required = True)
     fb_url = db.StringProperty(required = True)
+    check = db.BooleanProperty(required = True)
+    check_prefix = db.StringProperty()
     show = db.BooleanProperty(required=True)
     post_created = db.DateTimeProperty(required=True , auto_now_add = True)
 
@@ -48,24 +51,27 @@ class Participant(db.Model):
         return render_str("console_participant_per_post.html", participant = self)
 
     @classmethod
-    def add_participant(cls, name, gender, birthdate, identification, school, tshirt, phone, email,
-        emergency_contact, emergency_contact_phone, meal, disease, prefix, fb_name, fb_url, show):
+    def add_participant(cls, name, gender, birthdate, identification, school, email, phone, address, meal,
+        tshirt, emergency_contact, emergency_contact_phone, prefix, fb_id, fb_name, fb_url, check, check_prefix, show):
         return Participant(parent = participants_key(),
                     name = name,
                     gender = gender,
                     birthdate = birthdate,
                     identification = identification,
                     school = school,
-                    tshirt = tshirt,
-                    phone = phone,
                     email = email,
+                    phone = phone,
+                    address = address,
+                    meal = meal,
+                    tshirt = tshirt,
                     emergency_contact = emergency_contact,
                     emergency_contact_phone = emergency_contact_phone,
-                    meal = meal,
-                    disease = disease,
                     prefix = prefix,
+                    fb_id = fb_id,
                     fb_name = fb_name,
                     fb_url = fb_url,
+                    check = check,
+                    check_prefix = check_prefix,
                     show = show)
 
     

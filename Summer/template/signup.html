@@ -23,95 +23,96 @@
         <div class="row">
           <div class="input-field col s12 m6">
             <i class="mdi-action-account-circle prefix brown-text"></i>
-            <input id="icon_name" type="text" class="validate" name="name">
+            <input id="icon_name" type="text" class="validate" name="name" value="{{name}}">
             <label for="icon_name">
-              姓名{{err}}
+              姓名{{error_name}}
             </label>
           </div>
           <div class="input-field col s12 m6">
             <i class="mdi-action-face-unlock prefix brown-text"></i>
             <select id="icon_gender" class="Materialize-section" name="gender">
-				      <option value="" disabled selected>選擇性別{{err}}</option>
-				      <option value="1">男</option>
-				      <option value="2">女</option>
+				      <option value="" disabled selected>選擇性別</option>
+				      <option value="男">男</option>
+				      <option value="女">女</option>
 				    </select>
-				    <label for="icon_gender">性別{{err}}</label>
+				    <label for="icon_gender">性別{{error_gender}}</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12 m6">
             <i class="mdi-action-today prefix brown-text"></i>
-            <input id="icon_birthdate" type="date" class="datepicker" name="birthdate">
-            <label for="icon_birthdate">出生日期{{err}}</label>
+            <input id="icon_birthdate" type="date" class="datepicker" name="birthdate" value="{{birthdate}}">
+            <label for="icon_birthdate">出生日期{{error_birthdate}}</label>
           </div>
           <div class="input-field col s12 m6">
             <i class="mdi-action-perm-identity prefix brown-text"></i>
-            <input id="icon_identification" type="text" class="validate" name="identification">
-            <label for="icon_identification">身份證字號(保險用){{err}}</label>
+            <input id="icon_identification" type="text" class="validate" name="identification" value="{{identification}}">
+            <label for="icon_identification">身份證字號(保險用){{error_identification}}</label>
           </div>
         </div>
         <div class="row">
         	<div class="input-field col s12 m6">
             <i class="mdi-social-school prefix brown-text"></i>
-            <input id="icon_school" type="text" class="validate" name="school">
-            <label for="icon_school">就讀國中{{err}}</label>
+            <input id="icon_school" type="text" class="validate" name="school" value="{{school}}">
+            <label for="icon_school">就讀國中{{error_school}}</label>
           </div>
           <div class="input-field col s12 m6">
             <i class="mdi-communication-email prefix brown-text"></i>
-            <input id="icon_email" type="text" class="validate" name="tshirt">
-            <label for="icon_email">電子郵件{{err}}</label>
+            <input id="icon_email" type="text" class="validate" name="email" value="{{email}}">
+            <label for="icon_email">電子郵件{{error_email}}</label>
           </div>
         </div>
         <div class="row">
         	<div class="input-field col s12 m6">
             <i class="mdi-communication-phone prefix brown-text"></i>
-            <input id="icon_phone" type="text" class="validate" name="phone">
-            <label for="icon_phone">手機(電話){{err}}</label>
+            <input id="icon_phone" type="text" class="validate" name="phone" value="{{phone}}">
+            <label for="icon_phone">手機(電話){{error_phone}}</label>
           </div>
           <div class="input-field col s12 m6">
             <i class="mdi-communication-business prefix brown-text"></i>
-            <input id="icon_address" type="text" class="validate" name="email">
-            <label for="icon_address">通訊地址{{err}}</label>
+            <input id="icon_address" type="text" class="validate" name="address" value="{{address}}">
+            <label for="icon_address">通訊地址{{error_address}}</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12 m6">
             <i class="mdi-maps-local-restaurant prefix brown-text"></i>
-            <input id="icon_meal" type="text" class="validate" name="meal">
-            <label for="icon_meal">飲食習慣{{err}}</label>
+            <input id="icon_meal" type="text" class="validate" name="meal" value="{{meal}}">
+            <label for="icon_meal">飲食習慣{{error_meal}}</label>
           </div>
           <div class="input-field col s12 m6">
             <i class="mdi-navigation-fullscreen prefix brown-text"></i>
             <select id="icon_size" class="Materialize-section" name="gender">
-              <option value="" disabled selected>選擇尺寸{{err}}</option>
-              <option value="1">大</option>
-              <option value="2">中</option>
-              <option value="3">小</option>
-            </select>'
+              <option value="" disabled selected>選擇尺寸</option>
+              <option value="L">L</option>
+              <option value="M">M</option>
+              <option value="S">S</option>
+            </select>
             <label for="icon_size">訓服尺寸{{err}}</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12 m6">
             <i class="mdi-communication-contacts prefix brown-text"></i>
-            <input id="icon_emergency_contact" type="text" class="validate" name="emergency_contact">
-            <label for="icon_emergency_contact">緊急聯絡人{{err}}</label>
+            <input id="icon_emergency_contact" type="text" class="validate" name="emergency_contact" value="{{emergency_contact}}">
+            <label for="icon_emergency_contact">緊急聯絡人{{error_emergency_contact}}</label>
           </div>
           <div class="input-field col s12 m6">
             <i class="mdi-communication-ring-volume prefix brown-text"></i>
-            <input id="icon_emergency_contact_phone" type="text" class="validate" name="emergency_contact_phone">
-            <label for="icon_emergency_contact_phone">緊急聯絡電話{{err}}</label>
+            <input id="icon_emergency_contact_phone" type="text" class="validate" name="emergency_contact_phone" value="{{emergency_contact_phone}}">
+            <label for="icon_emergency_contact_phone">緊急聯絡電話{{error_emergency_contact_phone}}</label>
       		</div>
         </div>
         <div class="row">
           <div class="input-field col s12">
             <i class="mdi-editor-mode-edit prefix brown-text"></i>
-            <textarea id="icon_prefix" class="materialize-textarea" name="prefix" ></textarea>
+            <textarea id="icon_prefix" class="materialize-textarea" name="prefix" value="{{prefix}}"></textarea>
             <label for="icon_prefix">備註</label>
           </div>
         </div>
         <div class="row">
-          <button class="btn waves-effect waves-light brown" type="submit">Submit
+          <button class="btn wav</label>
+          </div>es-effect waves-light brown" type="submit">Submit
           <i class="mdi-content-send right"></i>
           </button>
         </div>
