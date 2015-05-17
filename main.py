@@ -124,7 +124,7 @@ class Signup(Handler):
             else:
                 p = db.GqlQuery("SELECT * FROM Participant WHERE fb_id = :id " ,id = str(self.fb_user.id)).fetch(None,0)
                 if p:
-                    self.redirect('/')
+                    self.redirect('/edit')
                 else:
                     fbname = self.fb_user.fbname
                     self.render('signup.html',fbname=fbname,err_class="hide")
@@ -136,6 +136,7 @@ class Signup(Handler):
             if self.fb_user.stop:
                 self.redirect('/stop')
             else:
+                p = db.GqlQuery("SELECT * FROM Participant WHERE fb_id = :id " ,id = str(self.fb_user.id)).fetch(None,0)
                 name = self.request.get('name')
                 gender = self.request.get('gender')
                 birthdate = self.request.get('birthdate')
@@ -151,7 +152,7 @@ class Signup(Handler):
                 prefix = self.request.get('prefix')
                 fb_id = self.fb_user.id
                 fb_name = self.fb_user.fbname
-                fb_url = 'https://www.facebook.com/'+ self.fb_user.id
+                fb_url = 'https://www.facebook.com/'+ self.fb_user.id                
                 check = False
                 check_prefix = ''
                 show = True
@@ -161,7 +162,7 @@ class Signup(Handler):
                     phone=phone,address=address,meal=meal,tshirt=tshirt,
                     emergency_contact=emergency_contact,
                     emergency_contact_phone=emergency_contact_phone,
-                    prefix=prefix)
+                    prefix=prefix,fbname=self.fb_user.fbname)
                 have_error=False
 
                 if not valid_name(name):
@@ -205,7 +206,7 @@ class Signup(Handler):
                 #     have_error = True
                 if have_error:
                     self.render('signup.html', **params)
-                else:                    
+                else:        
                     prefix = escape_input_save(prefix)
                     p = Participant.add_participant(name=name, gender=gender, birthdate=birthdate, 
                         identification=identification, school=school, email=email, phone=phone, 
@@ -213,6 +214,133 @@ class Signup(Handler):
                         emergency_contact_phone=emergency_contact_phone, prefix=prefix, fb_id=fb_id, 
                         fb_name=fb_name, fb_url=fb_url, check=check, check_prefix=check_prefix, 
                         show=show)
+                    p.put()
+                    p.post_created = datetime.now()+timedelta(hours=8)
+                    p.put()
+                    self.render('success.html')
+
+class Edit(Handler):
+    def get(self):
+        if not self.fb_user:
+            self.redirect('/fblogin?re=signup')
+        else:
+            if self.fb_user.stop:
+                self.redirect('/stop')
+            else:
+                p = db.GqlQuery("SELECT * FROM Participant WHERE fb_id = :id " ,id = str(self.fb_user.id)).fetch(None,0)
+                if p:
+                    name = p[0].name
+                    gender = p[0].gender
+                    birthdate = p[0].birthdate
+                    identification = p[0].identification
+                    school = p[0].school
+                    email = p[0].email
+                    phone = p[0].phone
+                    address = p[0].address
+                    meal = p[0].meal
+                    tshirt = p[0].tshirt
+                    emergency_contact = p[0].emergency_contact
+                    emergency_contact_phone = p[0].emergency_contact_phone
+                    prefix = p[0].prefix
+
+                    params = dict(name = name, gender=gender,birthdate=birthdate,
+                        identification=identification,school=school,email=email,
+                        phone=phone,address=address,meal=meal,tshirt=tshirt,
+                        emergency_contact=emergency_contact,
+                        emergency_contact_phone=emergency_contact_phone,
+                        prefix=prefix,fbname=self.fb_user.fbname)
+                    self.render('signup.html',**params)
+                else:
+                    self.redirect('/signup')
+
+    def post(self):
+        if not self.fb_user:
+            self.redirect('/fblogin')
+        else:
+            if self.fb_user.stop:
+                self.redirect('/stop')
+            else:
+                name = self.request.get('name')
+                gender = self.request.get('gender')
+                birthdate = self.request.get('birthdate')
+                identification = self.request.get('identification')
+                school = self.request.get('school')
+                email = self.request.get('email')
+                phone = self.request.get('phone')
+                address = self.request.get('address')
+                meal = self.request.get('meal')
+                tshirt = self.request.get('tshirt')
+                emergency_contact = self.request.get('emergency_contact')
+                emergency_contact_phone = self.request.get('emergency_contact_phone')
+                prefix = self.request.get('prefix')
+
+                params = dict(name = name, gender=gender,birthdate=birthdate,
+                    identification=identification,school=school,email=email,
+                    phone=phone,address=address,meal=meal,tshirt=tshirt,
+                    emergency_contact=emergency_contact,
+                    emergency_contact_phone=emergency_contact_phone,
+                    prefix=prefix,fbname=self.fb_user.fbname)
+                have_error=False
+
+                if not valid_name(name):
+                    params['error_name'] = u"填寫錯誤"
+                    have_error = True
+                if not valid_gender(gender):
+                    params['error_gender'] = u"填寫錯誤"
+                    have_error = True
+                if not valid_birthdate(birthdate):
+                    params['error_birthdate'] = u"填寫錯誤"
+                    have_error = True
+                if not valid_identification(identification):
+                    params['error_identification'] = u"填寫錯誤"
+                    have_error = True
+                if not valid_school(school):
+                    params['error_school'] = u"填寫錯誤"
+                    have_error = True
+                if not valid_email(email):
+                    params['error_email'] = u"填寫錯誤"
+                    have_error = True
+                if not valid_phone(phone):
+                    params['error_phone'] = u"填寫錯誤"
+                    have_error = True
+                if not valid_address(address):
+                    params['error_address'] = u"填寫錯誤"
+                    have_error = True
+                if not valid_meal(meal):
+                    params['error_meal'] = u"填寫錯誤"
+                    have_error = True
+                if not valid_tshirt(tshirt):
+                    params['error_tshirt'] = u"填寫錯誤"
+                    have_error = True
+                if not valid_emergency_contact(emergency_contact):
+                    params['error_emergency_contact'] = u"填寫錯誤"
+                    have_error = True
+                if not valid_emergency_contact_phone(emergency_contact_phone):
+                    params['error_emergency_contact_phone'] = u"填寫錯誤"
+                    have_error = True
+                # if not valid_prefix(emergency_prefix):
+                #     params['error_prefix'] = u"填寫錯誤"
+                #     have_error = True
+                if have_error:
+                    self.render('signup.html', **params)
+                else:        
+                    p = greetings = db.GqlQuery("SELECT * FROM Participant WHERE fb_id = :fb_id " ,fb_id = self.fb_user.id ).fetch(None,0)
+                    p_id=p[0].key().id()
+                    key = db.Key.from_path('Participant', int(p_id), parent=participants_key())
+                    p = db.get(key)
+                    p.name = name
+                    p.gender = gender
+                    p.birthdate = birthdate
+                    p.identification=identification
+                    p.school = school
+                    p.email = email
+                    p.phone = phone
+                    p.address = address
+                    p.meal = meal
+                    p.tshirt = tshirt
+                    p.emergency_contact = emergency_contact
+                    p.emergency_contact_phone = emergency_contact_phone
+                    p.prefix = prefix
                     p.put()
                     p.post_created = datetime.now()+timedelta(hours=8)
                     p.put()
@@ -315,6 +443,7 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/stop' , Stop),
                                 ('/content',Content),
                                 ('/signup',Signup),
+                                ('/edit',Edit),
                                 ('/contact',Contact),
                                 ('/console',Console),
                                 ('/console/participant',ConsoleParticipant),
