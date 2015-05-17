@@ -196,11 +196,7 @@ def valid_phone(phone):
 def valid_address(address):
     if address:
         return True
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> dcac8ca9c1ba2b566cb7361337ed42ed395daed1
 def valid_meal(meal):
     if(meal==u'葷' or meal==u'素' or meal==u'其他'):
         return True
