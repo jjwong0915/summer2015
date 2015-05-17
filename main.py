@@ -209,7 +209,7 @@ class Signup(Handler):
                     prefix = escape_input_save(prefix)
                     p = Participant.add_participant(name=name, gender=gender, birthdate=birthdate, 
                         identification=identification, school=school, email=email, phone=phone, 
-                        addres=address, meal=meal, tshirt=tshirt, emergency_contact=emergency_contact, 
+                        address=address, meal=meal, tshirt=tshirt, emergency_contact=emergency_contact, 
                         emergency_contact_phone=emergency_contact_phone, prefix=prefix, fb_id=fb_id, 
                         fb_name=fb_name, fb_url=fb_url, check=check, check_prefix=check_prefix, 
                         show=show)
