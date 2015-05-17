@@ -205,9 +205,10 @@ def valid_meal(meal):
         return True
 
 def valid_tshirt(tshirt):
-    if(tshirt==u'XL'or tshirt==u'L' or tshirt==u'M' or tshirt==u'S' or tshirt==u'XS'):
-
+    if(tshirt==u'XL' or tshirt==u'L' or tshirt==u'M' or tshirt==u'S' or tshirt==u'XS'):
         return True
+    else:
+        return False
 
 def valid_emergency_contact(emergency_contact):
     if emergency_contact:
@@ -215,4 +216,4 @@ def valid_emergency_contact(emergency_contact):
 
 EMERGENCY_PHONE_RE  = re.compile(r'^09\d{8}$')
 def valid_emergency_contact_phone(emergency_contact_phone):
-    return not emergency_contact_phone or EMERGENCY_PHONE_RE.match(emergency_contact_phone)
+    return emergency_contact_phone and EMERGENCY_PHONE_RE.match(emergency_contact_phone)
