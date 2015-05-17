@@ -169,7 +169,7 @@ def valid_gender(gender):
         return True
 
 def valid_birthdate(birthdate):
-    if birthday:
+    if birthdate:
         return True
 
 IDENTIFICATION_RE  = re.compile(r'^[A-Z]{1}[0-9]{9}$')
