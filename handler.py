@@ -185,7 +185,6 @@ def valid_school(school):
 
 EMAIL_RE  = re.compile(r'^[\S]+@[\S]+\.[\S]+$')
 def valid_email(email):
-<<<<<<< HEAD
     if email and EMAIL_RE.match(email):
         return True
 
@@ -193,19 +192,11 @@ PHONE_RE  = re.compile(r'^09\d{8}$')
 def valid_phone(phone):
     if phone and PHONE_RE.match(phone):
         return True
-=======
-    return email and EMAIL_RE.match(email)
-
-PHONE_RE  = re.compile(r'^09\d{8}$')
-def valid_phone(phone):
-    return not phone and PHONE_RE.match(phone)
->>>>>>> 7bd9ebdcea1e461cbb7e8b54d6917b60a19f9892
 
 def valid_address(address):
     if address:
         return True
-
-
+        
 def valid_meal(meal):
     if(meal==u'葷'or meal==u'素'or meal==u'其他'):
         return True
