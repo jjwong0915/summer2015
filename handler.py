@@ -194,14 +194,8 @@ def valid_address(address):
     if address:
         return True
 
-<<<<<<< HEAD
 def valid_meal(meal):
-    if(meal==u'葷'or meal==u'素' or meal="其他"):
-=======
-
-def valid_meal(meal):
-    if(meal==u'葷'or meal==u'素'or meal==u'其他'):
->>>>>>> 5bbecff69309f859da2cffa6c8bbf928918a9190
+    if(meal==u'葷' or meal==u'素' or meal==u'其他'):
         return True
 
 def valid_tshirt(tshirt):
