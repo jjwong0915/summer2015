@@ -326,7 +326,7 @@ class Edit(Handler):
                 else:        
                     p = greetings = db.GqlQuery("SELECT * FROM Participant WHERE fb_id = :fb_id " ,fb_id = self.fb_user.id ).fetch(None,0)
                     p_id=p[0].key().id()
-                    key = db.Key.from_path('FBUser', int(p_id), parent=fbusers_key())
+                    key = db.Key.from_path('Participant', int(p_id), parent=participants_key())
                     p = db.get(key)
                     p.name = name
                     p.gender = gender
@@ -443,7 +443,7 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/stop' , Stop),
                                 ('/content',Content),
                                 ('/signup',Signup),
-                                # ('/edit',Edit),
+                                ('/edit',Edit),
                                 ('/contact',Contact),
                                 ('/console',Console),
                                 ('/console/participant',ConsoleParticipant),
