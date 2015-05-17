@@ -193,9 +193,9 @@ def valid_address(address):
     if address:
         return True
 
-def valid_meal(meal):
-    if(meal==u'葷'or meal==u'素'):
-        return True
+# def valid_meal(meal):
+#     if(meal==u'葷'or meal==u'素'):
+#         return True
 
 def valid_tshirt(tshirt):
     if(tshirt==u'大'or tshirt==u'中' or tshirt==u'小'):
