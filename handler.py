@@ -169,11 +169,13 @@ def valid_gender(gender):
         return True
 
 def valid_birthdate(birthdate):
-    return not birthdate
+    if birthdate:
+        return True
 
-IDENTIFICATION_RE  = re.compile(r'^[A-Z]{1}[0-9]{10}$')
+IDENTIFICATION_RE  = re.compile(r'^[A-Z]{1}[0-9]{9}$')
 def valid_identification(identification):
-    return not identification or IDENTIFICATION_RE.match(identification)
+    if identification and IDENTIFICATION_RE.match(identification):
+        return True
 
 # SCHOOL_RE = re.compile(r'^[/u4e00-/u9fa5]{1,10}$')
 def valid_school(school):
@@ -183,11 +185,13 @@ def valid_school(school):
 
 EMAIL_RE  = re.compile(r'^[\S]+@[\S]+\.[\S]+$')
 def valid_email(email):
-    return not email or EMAIL_RE.match(email)
+    if email and EMAIL_RE.match(email):
+        return True
 
 PHONE_RE  = re.compile(r'^09\d{8}$')
 def valid_phone(phone):
-    return not phone or PHONE_RE.match(phone)
+    if phone and PHONE_RE.match(phone):
+        return True
 
 def valid_address(address):
     if address:
@@ -198,7 +202,7 @@ def valid_meal(meal):
         return True
 
 def valid_tshirt(tshirt):
-    if(tshirt==u'大'or tshirt==u'中' or tshirt==u'小'):
+    if(tshirt==u'L'or tshirt==u'M' or tshirt==u'S'):
         return True
 
 def valid_emergency_contact(emergency_contact):
