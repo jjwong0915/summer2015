@@ -36,11 +36,11 @@ template_dir = os.path.join(os.path.dirname(__file__), 'Summer/template')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
                                autoescape = True)
 
-# FACEBOOK_APP_ID = "1101523553197452"
-# FACEBOOK_APP_SECRET = "46f35b95eb1710680d16d39d78a86b05"
+FACEBOOK_APP_ID = "1101523553197452"
+FACEBOOK_APP_SECRET = "46f35b95eb1710680d16d39d78a86b05"
 
-FACEBOOK_APP_ID = "1101405939875880"
-FACEBOOK_APP_SECRET = "c0aba9ad62a0148f8bb1ae119a9eb3a7"
+# FACEBOOK_APP_ID = "1101405939875880"
+# FACEBOOK_APP_SECRET = "c0aba9ad62a0148f8bb1ae119a9eb3a7"
 
 def render_str(template, **params):
     t = jinja_env.get_template(template)
