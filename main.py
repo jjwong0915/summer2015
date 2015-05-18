@@ -92,14 +92,8 @@ class NoLogin(Handler):
 
 class NoPermission(Handler):
     def get(self):
-        if not self.user and not self.fb_user:
-            self.render('nopermission.html')
-        elif self.fb_user:
-            fb_user = dict(fb_user=self.fb_user)
-            self.render('nopermission.html',**fb_user)
-        elif self.user:
-            user = dict(user = self.user)
-            self.render('nopermission.html', **user)
+        self.error(404)
+        return
 
 class Stop(Handler):
     def get(self):
@@ -149,7 +143,7 @@ class Signup(Handler):
                 tshirt = self.request.get('tshirt')
                 emergency_contact = self.request.get('emergency_contact')
                 emergency_contact_phone = self.request.get('emergency_contact_phone')
-                prefix = self.request.get('prefix')
+                prefix = escape_input_save(self.request.get('prefix'))
                 fb_id = self.fb_user.id
                 fb_name = self.fb_user.fbname
                 fb_url = 'https://www.facebook.com/'+ self.fb_user.id                
@@ -205,9 +199,9 @@ class Signup(Handler):
                 #     params['error_prefix'] = u"填寫錯誤"
                 #     have_error = True
                 if have_error:
+                    params['prefix']  = escape_input_show(prefix)
                     self.render('signup.html', **params)
                 else:        
-                    prefix = escape_input_save(prefix)
                     p = Participant.add_participant(name=name, gender=gender, birthdate=birthdate, 
                         identification=identification, school=school, email=email, phone=phone, 
                         address=address, meal=meal, tshirt=tshirt, emergency_contact=emergency_contact, 
@@ -249,6 +243,7 @@ class Edit(Handler):
                         emergency_contact=emergency_contact,
                         emergency_contact_phone=emergency_contact_phone,
                         prefix=prefix,fbname=self.fb_user.fbname)
+                    params['prefix']  = escape_input_show(prefix)
                     self.render('signup.html',**params)
                 else:
                     self.redirect('/signup')
@@ -272,7 +267,7 @@ class Edit(Handler):
                 tshirt = self.request.get('tshirt')
                 emergency_contact = self.request.get('emergency_contact')
                 emergency_contact_phone = self.request.get('emergency_contact_phone')
-                prefix = self.request.get('prefix')
+                prefix = escape_input_save(self.request.get('prefix'))
 
                 params = dict(name = name, gender=gender,birthdate=birthdate,
                     identification=identification,school=school,email=email,
@@ -322,6 +317,7 @@ class Edit(Handler):
                 #     params['error_prefix'] = u"填寫錯誤"
                 #     have_error = True
                 if have_error:
+                    params['prefix']  = escape_input_show(prefix)
                     self.render('signup.html', **params)
                 else:        
                     p = greetings = db.GqlQuery("SELECT * FROM Participant WHERE fb_id = :fb_id " ,fb_id = self.fb_user.id ).fetch(None,0)

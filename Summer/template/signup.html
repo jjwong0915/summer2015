@@ -8,6 +8,7 @@
     </div>
   </div>
 
+
       <form method="post">
         <div class="row">
           <br>
@@ -19,7 +20,6 @@
             <br>
           </div>          
         </div>
-
         <div class="row">
           <div class="input-field col s12 m6">
             <i class="mdi-action-account-circle prefix brown-text"></i>
@@ -32,16 +32,15 @@
           <div class="input-field col s12 m6">
             <i class="mdi-action-face-unlock prefix brown-text"></i>
             <select id="icon_gender" class="Materialize-section" name="gender">
-				      <option value="" disabled selected>選擇性別</option>
-				      <option value="男">男</option>
-				      <option value="女">女</option>
+				      <option value="" disabled {%if not gender%}selected {%endif%}>選擇性別</option>
+				      <option value="男"{%if gender=='男'%}selected {%endif%}>男</option>
+				      <option value="女"{%if gender=='女'%}selected {%endif%}>女</option>
 				    </select>
 				    <label for="icon_gender">性別
               {%if error_gender%}<span style='color:red;'>&nbsp;{{error_gender}}</sapn>{%endif%}
             </label>
           </div>
         </div>
-
         <div class="row">
           <div class="input-field col s12 m6">
             <i class="mdi-action-today prefix brown-text"></i>
@@ -58,7 +57,6 @@
           </label>
           </div>
         </div>
-
         <div class="row">
         	<div class="input-field col s12 m6">
             <i class="mdi-social-school prefix brown-text"></i>
@@ -75,7 +73,6 @@
           </label>
           </div>
         </div>
-
         <div class="row">
         	<div class="input-field col s12 m6">
             <i class="mdi-communication-phone prefix brown-text"></i>
@@ -92,15 +89,15 @@
             </label>
           </div>
         </div>
-
         <div class="row">
           <div class="input-field col s12 m6">
             <i class="mdi-maps-local-restaurant prefix brown-text"></i>
+
             <select id="icon_size" class="validate" name="meal">
-              <option value="" disabled selected>飲食習慣</option>
-              <option value="葷">葷</option>
-              <option value="素">素</option>
-              <option value="其他">其他（請註記於備註）</option>
+              <option value="" disabled {%if not meal%}selected{%endif%}>飲食習慣</option>
+              <option value="葷" {%if meal=='葷'%}selected {%endif%}>葷</option>
+              <option value="素" {%if meal=='素'%}selected {%endif%}>素</option>
+              <option value="其他" {%if meal=='其他'%}selected {%endif%}>其他（請註記於備註）</option>
             </select>
             <label for="icon_meal">飲食習慣
             {%if error_meal%}<span style='color:red;'>&nbsp;{{error_meal}}</span>{%endif%}
@@ -109,19 +106,18 @@
           <div class="input-field col s12 m6">
             <i class="mdi-navigation-fullscreen prefix brown-text"></i>
             <select id="icon_size" class="Materialize-section" name="tshirt">
-              <option value="" disabled selected>選擇尺寸</option>
-              <option value="XL">XL</option>
-              <option value="L">L</option>
-              <option value="M">M</option>
-              <option value="S">S</option>
-              <option value="XS">XS</option>
+              <option value="" disabled {%if not tshirt%}selected {%endif%}>選擇尺寸</option>
+              <option value="XL" {%if tshirt=='XL'%}selected {%endif%}>XL</option>
+              <option value="L" {%if tshirt=='L'%}selected {%endif%}>L</option>
+              <option value="M" {%if tshirt=='M'%}selected {%endif%}>M</option>
+              <option value="S" {%if tshirt=='S'%}selected {%endif%}>S</option>
+              <option value="XS" {%if tshirt=='XS'%}selected {%endif%}>XS</option>
             </select>
             <label for="icon_size">訓服尺寸
             {%if error_tshirt%}<span style='color:red;'>&nbsp;{{error_tshirt}}</span>{%endif%}
           </label>
           </div>
-          </div>
-
+        </div>
         <div class="row">
           <div class="input-field col s12 m6">
             <i class="mdi-communication-contacts prefix brown-text"></i>
@@ -138,11 +134,10 @@
           </label>
       		</div>
         </div>
-        
         <div class="row">
           <div class="input-field col s12">
             <i class="mdi-editor-mode-edit prefix brown-text"></i>
-            <textarea id="icon_prefix" class="materialize-textarea" name="prefix" value="{{prefix}}"></textarea>
+            <textarea id="icon_prefix" class="materialize-textarea" name="prefix">{{prefix}}</textarea>
             <label for="icon_prefix">備註</label>
           </div>
         </div>

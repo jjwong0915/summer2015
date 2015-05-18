@@ -1,6 +1,13 @@
-	<a href="/console/participant">Back</a>
+	
 	<br>
-	<table>
+	<table class="hoverable">
+		<tr>
+			<th style='width:15%;'>
+				<a href="/console/participant" class="waves-effect waves-light btn">Back</a>
+			</th>
+			<th>
+			</th>
+		</tr>
 		<tr>
 			<td>
 				姓名
@@ -94,7 +101,15 @@
 				備註
 			</td>
 			<td>
-				{{participant.prefix}}
+				{{participant.prefix | safe}}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				FB ID
+			</td>
+			<td>
+				{{participant.fb_id}}
 			</td>
 		</tr>
 		<tr>
@@ -111,6 +126,14 @@
 			</td>
 			<td>
 				<a href='{{participant.fb_url}}'>Facebook</a>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				最後修改
+			</td>
+			<td>
+				{{participant.post_created}}
 			</td>
 		</tr>
 

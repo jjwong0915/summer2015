@@ -36,9 +36,11 @@ template_dir = os.path.join(os.path.dirname(__file__), 'Summer/template')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
                                autoescape = True)
 
-#FACEBOOK_APP_ID = "1101523553197452"
-#FACEBOOK_APP_SECRET = "46f35b95eb1710680d16d39d78a86b05"
+# localhost
+# FACEBOOK_APP_ID = "1101405939875880"
+# FACEBOOK_APP_SECRET = "c0aba9ad62a0148f8bb1ae119a9eb3a7"
 
+# version 3
 FACEBOOK_APP_ID = "920333311322609"
 FACEBOOK_APP_SECRET = "a8423c2259db60dbe866f227dcceee1c"
 
@@ -188,7 +190,7 @@ def valid_email(email):
     if email and EMAIL_RE.match(email):
         return True
 
-PHONE_RE  = re.compile(r'^09\d{8}$')
+PHONE_RE  = re.compile(r'^\d{7,10}$')
 def valid_phone(phone):
     if phone and PHONE_RE.match(phone):
         return True
@@ -198,11 +200,11 @@ def valid_address(address):
         return True
 
 def valid_meal(meal):
-    if(meal==u'葷' or meal==u'素' or meal==u'其他'):
+    if(meal==u'葷'or meal==u'素'or meal==u'其他'):
         return True
 
 def valid_tshirt(tshirt):
-    if(tshirt==u'L'or tshirt==u'M' or tshirt==u'S' or tshirt==u'XS'):
+    if(tshirt==u'L'or tshirt==u'M' or tshirt==u'S' or tshirt==u'XS'or tshirt==u'XL'):
         return True
     else:
         return False
@@ -211,6 +213,6 @@ def valid_emergency_contact(emergency_contact):
     if emergency_contact:
         return True
 
-EMERGENCY_PHONE_RE  = re.compile(r'^09\d{8}$')
 def valid_emergency_contact_phone(emergency_contact_phone):
-    return emergency_contact_phone and EMERGENCY_PHONE_RE.match(emergency_contact_phone)
+    if emergency_contact_phone and PHONE_RE.match(emergency_contact_phone):
+        return True
