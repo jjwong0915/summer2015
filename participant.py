@@ -41,7 +41,8 @@ class Participant(db.Model):
     check = db.BooleanProperty(required = True)
     check_prefix = db.StringProperty()
     show = db.BooleanProperty(required=True)
-    post_created = db.DateTimeProperty(required=True , auto_now_add = True)
+    post_created = db.DateTimeProperty(required=True)
+    last_modified = db.DateTimeProperty(required=True , auto_now_add = True)
 
     def render(self):
         return render_str("console_participant_post.html", participant = self)
@@ -52,7 +53,7 @@ class Participant(db.Model):
 
     @classmethod
     def add_participant(cls, name, gender, birthdate, identification, school, email, phone, address, meal,
-        tshirt, emergency_contact, emergency_contact_phone, prefix, fb_id, fb_name, fb_url, check, check_prefix, show):
+        tshirt, emergency_contact, emergency_contact_phone, prefix, fb_id, fb_name, fb_url, check, check_prefix, show, post_created):
         return Participant(parent = participants_key(),
                     name = name,
                     gender = gender,
@@ -72,6 +73,7 @@ class Participant(db.Model):
                     fb_url = fb_url,
                     check = check,
                     check_prefix = check_prefix,
-                    show = show)
+                    show = show,
+                    post_created=post_created)
 
     

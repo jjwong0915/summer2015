@@ -207,9 +207,9 @@ class Signup(Handler):
                         address=address, meal=meal, tshirt=tshirt, emergency_contact=emergency_contact, 
                         emergency_contact_phone=emergency_contact_phone, prefix=prefix, fb_id=fb_id, 
                         fb_name=fb_name, fb_url=fb_url, check=check, check_prefix=check_prefix, 
-                        show=show)
+                        show=show,post_created=datetime.now()+timedelta(hours=8))
                     p.put()
-                    p.post_created = datetime.now()+timedelta(hours=8)
+                    p.last_modified = datetime.now()+timedelta(hours=8)
                     p.put()
                     self.render('success.html')
 
@@ -338,7 +338,7 @@ class Edit(Handler):
                     p.emergency_contact_phone = emergency_contact_phone
                     p.prefix = prefix
                     p.put()
-                    p.post_created = datetime.now()+timedelta(hours=8)
+                    p.last_modified = datetime.now()+timedelta(hours=8)
                     p.put()
                     self.render('success.html')
                 
