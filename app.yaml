@@ -24,6 +24,9 @@ handlers:
 - url: /js
   static_dir: Summer/js
 
+- url: /subject
+  static_dir: Summer/subject
+
 - url: /.*
   script: main.app
 

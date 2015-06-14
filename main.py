@@ -430,6 +430,10 @@ class News(Handler):
     def get(self):
         self.render('news.html')
 
+class Subject(Handler):
+    def get(self):
+        self.render('subject.html')
+
 app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/index' , Index),
                                 ('/fblogin',FBLogin),
@@ -447,6 +451,7 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/console/participant/delete' , ConsoleParticipant_Delete),
                                 ('/picture', Picture),
                                 ('/note', Note), 
-                                ('/news', News)
+                                ('/news', News),
+                                ('/subject', Subject)
                                 ],
                                 debug=True)

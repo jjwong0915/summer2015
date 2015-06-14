@@ -194,3 +194,18 @@ input[type=text].valid, input[type=text]:focus.valid, input[type=password].valid
 .subtitle{
   font-size:100%;
 }
+
+.title_img{
+  width: 40%;
+  opacity: 0.6;
+  -webkit-transition:visibility 0.5s linear 0.5s,opacity 0.5s linear;
+}
+
+.title_img:hover{
+  opacity: 1;
+}
+
+
+.title_img_div{
+  text-align: center;
+}
