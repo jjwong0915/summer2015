@@ -1,5 +1,9 @@
 <td>
-    {{participant.name}}
+       
+    <span {% if participant.gender == "女" %}style="color: red"{% endif %}>
+      {{participant.name}}
+    </span>
+
 </td>
 <td>
       <a href="/console/participant/{{participant.key().id()}}">Details</a>

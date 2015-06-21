@@ -359,7 +359,7 @@ class Console(Handler):
                 name = self.fb_user.fbname
                 self.render('console.html', name=name)
 
-class ConsoleParticipant(Handler):
+class ConsoleParticipant1(Handler):
     def get(self):
         if not self.fb_user:
             self.redirect('/fblogin?re=console')
@@ -371,9 +371,24 @@ class ConsoleParticipant(Handler):
             else:
                 name = self.fb_user.fbname
 
-                participants = greetings = db.GqlQuery("SELECT * FROM Participant WHERE show = :show " ,show=True).fetch(None,0)
+                participants = greetings = db.GqlQuery("SELECT * FROM Participant WHERE show = :show" ,show=False).fetch(None,0)
 
                 self.render('console_participant.html', participants=participants, name=name)
+
+class ConsoleParticipant2(Handler):
+    def get(self):
+        if not self.fb_user:
+            self.redirect('/fblogin?re=console')
+        else:
+            if not self.fb_user.admin:
+                self.redirect('/nopermission')
+            elif self.fb_user.stop:
+                self.redirect('/stop')
+            else:
+                name = self.fb_user.fbname
+                participants = greetings = db.GqlQuery("SELECT * FROM Participant WHERE show = :show", show=True).fetch(None, 0)
+                self.render('console_participant.html', participants=participants, name="jizz")
+
         
 class ConsoleParticipant_PostPage(Handler):
     def get(self, post_id):
@@ -446,7 +461,8 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/edit',Edit),
                                 ('/contact',Contact),
                                 ('/console',Console),
-                                ('/console/participant',ConsoleParticipant),
+                                ('/console/participant1',ConsoleParticipant1),
+                                ('/console/participant2', ConsoleParticipant2),
                                 ('/console/participant/([0-9]+)' , ConsoleParticipant_PostPage),
                                 ('/console/participant/delete' , ConsoleParticipant_Delete),
                                 ('/picture', Picture),
