@@ -29,9 +29,14 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 from google.appengine.ext.webapp import template
 
+from google.appengine.ext import blobstore
+from google.appengine.ext.webapp import blobstore_handlers
+from google.appengine.ext.webapp.util import run_wsgi_app
+
 from handler import *
 from fbuser import *
 from participant import *
+from upload import *
 
 class MainPage(Handler):
     def get(self):
@@ -73,7 +78,8 @@ class FBLogin(Handler):
             set_cookie(self.response, "fb_user", str(profile["id"]),
                        expires=time.time() + 30 * 86400)
             
-            self.redirect('/signup')
+            # self.redirect('/signup')
+            self.redirect('/')
             
         else:
             self.redirect(
@@ -398,9 +404,9 @@ class ConsoleParticipant_PostPage(Handler):
         if not participant:
             self.error(404)
             return
-        if not participant.show:
-            self.error(404)
-            return
+        # if not participant.show:
+        #     self.error(404)
+        #     return
 
         if not self.fb_user:
             self.redirect('/fblogin?re=console')
@@ -449,6 +455,41 @@ class Subject(Handler):
     def get(self):
         self.render('subject.html')
 
+class Upload(Handler):
+    def get(self):
+        upload_url = FileReturn.filereturn()
+        self.render('upload_file.html',upload_url=upload_url)
+
+class FileReturn(blobstore_handlers.BlobstoreUploadHandler):
+    @classmethod
+    def filereturn(cls):
+        upload_url = blobstore.create_upload_url('/upload_file')
+        return upload_url
+
+class UploadFile(blobstore_handlers.BlobstoreUploadHandler):
+    def post(self):
+        try:
+            file_name = self.request.get('file_name')
+            upload = self.get_uploads()[0]
+            upload_file = File.add_file(user='1',file_name=file_name,upload_key=upload.key())
+            upload_file.put()
+
+            # self.redirect('/upload')
+            self.redirect('/upload_file_s/%s' % upload.key())
+        except:
+            self.redirect('/upload/failure')
+
+class UploadRedirect(Handler):
+    def get(self,upload_key):
+        self.response.out.write("<a href=/file/%s>File</a>" %upload_key)
+
+class ViewFileHandler(blobstore_handlers.BlobstoreDownloadHandler):
+    def get(self, upload_key):
+        if not blobstore.get(upload_key):
+            self.error(404)
+        else:
+            self.send_blob(upload_key)
+
 app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/index' , Index),
                                 ('/fblogin',FBLogin),
@@ -457,7 +498,7 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/nopermission' , NoPermission),
                                 ('/stop' , Stop),
                                 ('/content',Content),
-                                ('/signup',Signup),
+                                # ('/signup',Signup),
                                 ('/edit',Edit),
                                 ('/contact',Contact),
                                 ('/console',Console),
@@ -468,6 +509,10 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/picture', Picture),
                                 ('/note', Note), 
                                 ('/news', News),
-                                ('/subject', Subject)
+                                ('/subject', Subject),
+                                # ('/upload',Upload),
+                                # ('/upload_file',UploadFile),
+                                # ('/upload_file_s/([^/]+)?',UploadRedirect),
+                                # ('/file/([^/]+)?', ViewFileHandler),
                                 ],
                                 debug=True)

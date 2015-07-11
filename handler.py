@@ -30,6 +30,7 @@ from google.appengine.ext.webapp import util
 from google.appengine.ext.webapp import template
 
 from fbuser import *
+from upload import *
 
 
 template_dir = os.path.join(os.path.dirname(__file__), 'Summer/template')
